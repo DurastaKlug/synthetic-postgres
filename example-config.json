@@ -1,0 +1,130 @@
+{
+  "database": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "your_database",
+    "user": "your_users",
+    "password": "your_password",
+    "schema": "banks"
+  },
+  "tables": [
+    {
+      "table_name": "users",
+      "rows_to_generate": 500,
+      "null_probability": 0.03,
+      "unique_columns": ["user_id", "username", "email", "phone"],
+      "column_rules": {
+        "user_id": {
+          "type": "int",
+          "min_value": 1000,
+          "max_value": 9999
+        },
+        "username": {
+          "type": "pattern", 
+          "pattern": "user_#####"
+        },
+        "email": {
+          "type": "email",
+          "domains": ["gmail.com", "mail.ru", "yandex.ru", "company.com"]
+        },
+        "phone": {
+          "type": "pattern",
+          "pattern": "+7-###-###-##-##"
+        },
+        "first_name": {
+          "type": "enum",
+          "values": ["Алексей", "Мария", "Сергей", "Анна", "Дмитрий", "Елена", "Иван", "Ольга"]
+        },
+        "last_name": {
+          "type": "enum", 
+          "values": ["Иванов", "Петров", "Сидоров", "Смирнов", "Кузнецов", "Попов", "Васильев"]
+        },
+        "birth_date": {
+          "type": "date",
+          "start_date": "1970-01-01",
+          "end_date": "2005-12-31"
+        },
+        "registration_date": {
+          "type": "timestamp",
+          "start_date": "2020-01-01 00:00:00", 
+          "end_date": "2024-12-31 23:59:59"
+        },
+        "is_active": {
+          "type": "boolean",
+          "true_probability": 0.85
+        },
+        "user_type": {
+          "type": "enum",
+          "values": ["customer", "admin", "moderator", "support"]
+        },
+        "last_login": {
+          "type": "timestamp",
+          "start_date": "2024-01-01 00:00:00",
+          "end_date": "2024-12-31 23:59:59"
+        }
+      }
+    },
+    {
+      "table_name": "orders", 
+      "rows_to_generate": 1000,
+      "unique_columns": ["order_id"],
+      "column_rules": {
+        "order_id": {
+          "type": "pattern",
+          "pattern": "ORD-#####-###"
+        },
+        "user_id": {
+          "type": "int", 
+          "min_value": 1000,
+          "max_value": 9999
+        },
+        "order_date": {
+          "type": "timestamp",
+          "start_date": "2024-01-01 00:00:00",
+          "end_date": "2024-12-31 23:59:59"
+        },
+        "total_amount": {
+          "type": "decimal", 
+          "min_value": 50.0,
+          "max_value": 10000.0,
+          "precision": 2
+        },
+        "status": {
+          "type": "enum",
+          "values": ["pending", "confirmed", "shipped", "delivered", "cancelled"]
+        },
+        "payment_method": {
+          "type": "enum", 
+          "values": ["credit_card", "debit_card", "paypal", "bank_transfer", "cash"]
+        },
+        "shipping_address": {
+          "type": "text",
+          "min_words": 5,
+          "max_words": 15, 
+          "include_words": ["ул.", "д.", "кв.", "Москва", "Санкт-Петербург"]
+        },
+        "discount_amount": {
+          "type": "decimal",
+          "min_value": 0.0,
+          "max_value": 500.0,
+          "precision": 2
+        },
+        "tax_amount": {
+          "type": "decimal",
+          "min_value": 1.0, 
+          "max_value": 1000.0,
+          "precision": 2
+        }
+      }
+    }
+  ],
+  "global_settings": {
+    "default_null_probability": 0.05,
+    "max_retry_unique": 1000,
+    "date_format": "YYYY-MM-DD", 
+    "timestamp_format": "YYYY-MM-DD HH:MI:SS",
+    "batch_size": 100,
+    "enable_foreign_keys": true,
+    "log_level": "INFO"
+  }
+}
