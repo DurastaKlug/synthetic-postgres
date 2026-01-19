@@ -153,17 +153,20 @@ After launch, the generator will:
 
 
 ## 📁 Project Structure
-
-├── main.py                    # Main executable script
-├── postgres_utils.py          # PostgreSQL interaction logic
-├── database_config.py         # Connection settings management
-├── config.json                # Your configuration file (created from a template)
-├── generator_config_json/     # Configuration templates
-│   └── examples/
-│       ├── only_schema.json
-│       └── schema_with_tables_config.json
-├── example-create_table.sql   # Example SQL scripts for table creation
-└── requirements.txt           # Python dependencies list
+```markdown
+| File/Folder | Purpose |
+|------------|------------|
+| main.py | Main executable script of the generator |
+| postgres_utils.py | PostgreSQL interaction logic |
+| database_config.py | Database connection settings management |
+| config.json | Your configuration file (created from templates) |
+| generator_config_json/ | Directory with configuration templates |
+| ├── examples/ | Ready-to-use configuration examples |
+| │ ├── only_schema.json | Template for an entire database schema |
+| │ └── schema_with_tables_config.json | Template for selected tables within a schema |
+| example-create_table.sql | Example SQL scripts for table creation |
+| requirements.txt | Python dependencies list |
+```
 
 
 ## ✅ Important Notes and Troubleshooting
@@ -304,16 +307,16 @@ python main.py
 ```markdown
 | Файл/Папка | Назначение |
 |------------|------------|
-| **`main.py`** | Основной исполняемый скрипт генератора |
-| **`postgres_utils.py`** | Логика взаимодействия с PostgreSQL |
-| **`database_config.py`** | Управление настройками подключения к БД |
-| **`config.json`** | Файл конфигурации (создается из шаблонов) |
-| **`generator_config_json/`** | Директория с шаблонами конфигурации |
-| ├── `examples/` | Примеры готовых конфигураций |
-| │ ├── `only_schema.json` | Шаблон для всей схемы |
-| │ └── `schema_with_tables_config.json` | Шаблон для выбранных таблиц |
-| **`example-create_table.sql`** | Пример SQL-скриптов для создания таблиц |
-| **`requirements.txt`** | Список зависимостей Python |
+| main.py | Основной исполняемый скрипт генератора |
+| postgres_utils.py | Логика взаимодействия с PostgreSQL |
+| database_config.py | Управление настройками подключения к БД |
+| config.json | Файл конфигурации (создается из шаблонов) |
+| generator_config_json/ | Директория с шаблонами конфигурации |
+| ├── examples/ | Примеры готовых конфигураций |
+| │ ├── only_schema.json | Шаблон для всей схемы |
+| │ └── schema_with_tables_config.json | Шаблон для выбранных таблиц |
+| example-create_table.sql | Пример SQL-скриптов для создания таблиц |
+| requirements.txt | Список зависимостей Python |
 ```
 
 ## ✅ Важные рекомендации и устранение неполадок
