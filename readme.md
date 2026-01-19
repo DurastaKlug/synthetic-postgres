@@ -301,16 +301,16 @@ python main.py
 · Уникальные значения требуют достаточного диапазона
 
 ## 📁 Пример структуры проекта:
-├── main.py                    # Основной исполняемый скрипт
-├── postgres_utils.py          # Логика взаимодействия с PostgreSQL
-├── database_config.py         # Управление настройками подключения
-├── config.json                # Ваш файл конфигурации (создается из шаблона)
-├── generator_config_json/     # Шаблоны конфигурации
-│   └── examples/
-│       ├── only_schema.json
-│       └── schema_with_tables_config.json
-├── example-create_table.sql   # Пример SQL-скриптов для создания таблиц
-└── requirements.txt           # Список зависимостей Python
+├── main.py # Основной исполняемый скрипт
+├── postgres_utils.py # Логика взаимодействия с PostgreSQL
+├── database_config.py # Управление настройками подключения
+├── config.json # Ваш файл конфигурации (создается из шаблона)
+├── generator_config_json/ # Шаблоны конфигурации
+│ └── examples/
+│ ├── only_schema.json
+│ └── schema_with_tables_config.json
+├── example-create_table.sql # Пример SQL-скриптов для создания таблиц
+└── requirements.txt # Список зависимостей Python
 
 ## ✅ Важные рекомендации и устранение неполадок
 
