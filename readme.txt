@@ -1,3 +1,149 @@
+# ENGL
+	Synthetic Data Generator for PostgreSQL
+
+A professional tool for generating realistic synthetic data into PostgreSQL databases. 
+Supports flexible generation rule configuration via JSON files.
+
+## ✨ Features
+
+- **Database Structure Analysis** - Automatic retrieval of table lists and their structure.
+- **Smart Data Generation** - Support for a wide range of PostgreSQL data types.
+- **Flexible Configuration** - Fine-tuning rules through JSON files.
+- **Unique Values** - Guaranteed uniqueness for specified columns.
+- **Date Ranges** - Generation of timestamps within specified intervals.
+- **Typed Generation** - Intelligent data type detection based on column names.
+
+## 📋 Supported Data Types
+
+- Integer (`int`, `bigint`, `serial`)
+- String (`varchar`, `text`)
+- Boolean (`boolean`)
+- Dates and timestamps (`date`, `timestamp`)
+- Floating-point numbers (`decimal`, `numeric`)
+- Email addresses
+- Enumerations (`enum`)
+- Pattern-based
+
+## 🚀 Quick Start
+
+### 1. Environment Setup and Installation
+
+# Create a virtual environment
+python -m venv venv
+
+# Activate (Windows)
+venv\Scripts\activate
+
+# Activate (Mac/Linux)
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+
+### 2. Visual Studio Code Setup (Recommended)
+
+1. Press `Ctrl+Shift+P` to open the command palette.
+2. Type: **Python: Select Interpreter**
+3. Select the interpreter: `.\venv\Scripts\python.exe`
+
+### 3. JSON Configuration Setup
+
+Ready-made configuration templates are located in the generator_config_json/examples/ folder:
+
+only_schema.json - Generate data for all tables in the specified schema. 
+When to Use: For complete database schema population.
+schema_with_tables_config.json - Generate data for specific tables in a schema. 
+When to Use: For selective table population.
+
+**How to use a template:**
+
+# Copy the suitable template to the project root as config.json
+cp generator_config_json/examples/only_schema.json config.json
+
+Edit config.json for your database.
+
+### 4. Configuration File Structure
+
+#### Database Connection Settings
+
+{
+  "host": "localhost",
+  "port": 5432,
+  "database": "your_database",
+  "user": "your_username",
+  "password": "your_password",
+  "schema": "public"
+}
+
+
+#### Table Settings
+*   `table_name` - Table name.
+*   `rows_to_generate` - Number of rows to generate.
+*   `null_probability` - Probability of a NULL value (0.0 to 1.0).
+*   `unique_columns` - List of columns requiring unique values.
+
+#### Column Generation Rules (`column_rules`)
+| Type (`type`) | Description | Key Parameters |
+| **`"int"`** | Integer number. | `min_value`, `max_value` |
+| **`"decimal"`** | Decimal number. | `precision` |
+| **`"text"`** | Text. | `min_words`, `max_words` |
+| **`"email"`** | Email address. | `domains` |
+| **`"boolean"`** | Boolean value. | `true_probability` |
+| **`"date"`/`"timestamp"`** | Date/time. | `start_date`, `end_date` |
+| **`"pattern"`** | Pattern-based. | `pattern` (e.g., `"A##-B###"`) |
+| **`"enum"`** | Value from a list. | `values` |
+
+#### Global Settings (`global_settings`)
+*   `default_null_probability` - Default NULL probability (e.g., `0.05`).
+*   `max_retry_unique` - Number of attempts to generate a unique value (default `1000`).
+*   `batch_size` - Number of rows for batch insertion (recommended `100`).
+*   `enable_foreign_keys` - Foreign key constraint check (`true`/`false`).
+*   `log_level` - Logging detail level (`"INFO"` or `"DEBUG"`).
+
+
+### 5. Running the Generator
+
+python main.py
+
+After launch, the generator will:
+1.  Analyze the structure of your PostgreSQL database.
+2.  Apply generation rules from the `config.json` file.
+3.  Generate and insert synthetic data in batches.
+4.  Check referential integrity between tables (if enabled).
+
+
+
+## 📁 Project Structure
+
+├── main.py                    # Main executable script
+├── postgres_utils.py          # PostgreSQL interaction logic
+├── database_config.py         # Connection settings management
+├── config.json                # Your configuration file (created from a template)
+├── generator_config_json/     # Configuration templates
+│   └── examples/
+│       ├── only_schema.json
+│       └── schema_with_tables_config.json
+├── example-create_table.sql   # Example SQL scripts for table creation
+└── requirements.txt           # Python dependencies list
+
+
+## ✅ Important Notes and Troubleshooting
+
+### **Work Order:**
+1.  **Fill tables in the correct order**: Start with tables referenced by others (parent tables), then child tables.
+2.  **String types**: For `varchar` or `bpchar` columns, specify `type: "text"` in the config.
+
+### **Performance Tuning:**
+*   Increase the **`batch_size`** parameter to `200-1000` when working with large tables.
+*   For unique values, ensure the range (`min_value`/`max_value`) is sufficient to generate the required number of rows.
+
+### **Troubleshooting:**
+*   **Foreign Key Error**: Check the order of tables in `config.json`. Tables should be listed from parent to child.
+*   **Detailed Logging**: For non-obvious errors, change `log_level` to `"DEBUG"` in the configuration for a detailed report.
+*   **Test Run**: Always test your configuration with a small amount of data (`rows_to_generate: 5-10`) before running a full generation.
+
+# RU
 		Генератор синтетических данных для PostgreSQL
 
  Профессиональный инструмент для генерации реалистичных синтетических данных в базы данных PostgreSQL.
@@ -43,23 +189,40 @@ vs code горячие клавиши: Ctrl+Shift+P
 vs code поисковик: Python: Select Interpretator
 -> .\venv\Scripts\python.exe
 
-3. Примеры настройки конфига json находится в файле example_config.json
- Для его использования или создания кастомного нужно переименовать или создать config.json.
- А так же вот краткое описание для заполнения config.json:
+3. Настройка конфигурации JSON
 
-host - адрес сервера (localhost, IP или домен)
-port - порт PostgreSQL (обычно 5432)
-database - имя базы данных
-user - имя пользователя
-password - пароль
-schema - схема
+	Шаблоны
+
+only_schema.json - Генерация данных для всех таблиц в указанной схеме.	
+Когда используется: Для полного заполнения схемы БД.
+
+schema_with_tables_config.json - Генерация данных для конкретных таблиц в схеме.	
+Когда используется: Для выборочного заполнения таблиц.
+
+Как использовать шаблон: 
+
+# Скопируйте подходящий шаблон в корень проекта как config.json
+cp generator_config_json/examples/only_schema.json config.json
+
+Отредактируйте config.json под вашу базу данных.
+
+Настройки подключения к базе данных
+
+{
+  "host": "localhost",
+  "port": 5432,
+  "database": "ваша_база",
+  "user": "ваш_пользователь",
+  "password": "ваш_пароль",
+  "schema": "public"
+}
 
 Настройки таблиц
 
 table_name - имя таблицы
-rows_to_generate- сколько строк создать
-null_probability- шанс NULL (0-1)
-unique_columns- список колонок с уникальными значениями
+rows_to_generate - сколько строк создать
+null_probability - шанс NULL (0.0-1.0)
+unique_columns - список колонок с уникальными значениями
 
 Правила для колонок
 
@@ -75,6 +238,11 @@ type - тип данных:
 · "enum" - из списка (values)
 
 Глобальные настройки
+
+default_null_probability - шанс NULL по умолчанию
+max_retry_unique- попытки для уникальных значений
+batch_size- размер пачки вставки
+enable_foreign_keys- проверка связей между таблицами
 
 default_null_probability - шанс NULL по умолчанию (0.05 = 5%)
 max_retry_unique - попытки создать уникальное значение (1000)
@@ -94,28 +262,23 @@ log_level - детальность логов (INFO - стандартное, DE
 python main.py
 
 5. Пример структуры проекта:
-├── main.py              # основной скрипт
-├── postgres_utils.py    # логика работы с БД
-├── database_config.py   # настройки подключения
-├── example-config.json  # наша конфигурация, которую надо переименовать в config.json
-├── example-create_table.sql # пример создания таблиц под конфигурацию
-└── requirements.txt     # зависимости
+├── main.py                    # Основной исполняемый скрипт
+├── postgres_utils.py          # Логика взаимодействия с PostgreSQL
+├── database_config.py         # Управление настройками подключения
+├── config.json                # Ваш файл конфигурации (создается из шаблона)
+├── generator_config_json/     # Шаблоны конфигурации
+│   └── examples/
+│       ├── only_schema.json
+│       └── schema_with_tables_config.json
+├── example-create_table.sql   # Пример SQL-скриптов для создания таблиц
+└── requirements.txt           # Список зависимостей Python
 
 
 • При ошибке внешних ключей - проверьте порядок таблиц в config.json
 • Для больших таблиц увеличьте batch_size до 200-1000
 • При ошибках используйте log_level: "DEBUG"
 
-Возможные последующие улучшения или доработки:
-GUI приложение:
-· Desktop версия на Tkinter/PyQt
-· Мастер настройки конфигурации с пошаговым руководством
-· График прогресса генерации с ETA
-· Встроенный редактор JSON с подсветкой синтаксиса
 
-Умные зависимости:
-· Автоматическое определение порядка таблиц по внешним ключам
-· Генерация согласованных данных (email → username, адрес → город)
 
 
 
