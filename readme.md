@@ -1,9 +1,35 @@
-- [ENGL](#ENGL)
-- [Quick Start](#Quick-Start)
+- [ENGL Synthetic Data Generator for PostgreSQL](#engl-synthetic-data-generator-for-postgresql)
+  - [✨ Features](#-features)
+  - [📋 Supported Data Types](#-supported-data-types)
+  - [🚀 Quick Start](#-quick-start)
+    - [1. Environment Setup and Installation](#1-environment-setup-and-installation)
+- [Create a virtual environment](#create-a-virtual-environment)
+- [Activate (Windows)](#activate-windows)
+- [Activate (Mac/Linux)](#activate-maclinux)
+- [Install dependencies](#install-dependencies)
+    - [2. Visual Studio Code Setup (Recommended)](#2-visual-studio-code-setup-recommended)
+    - [3. JSON Configuration Setup](#3-json-configuration-setup)
+- [Copy the suitable template to the project root as config.json](#copy-the-suitable-template-to-the-project-root-as-configjson)
+    - [4. Configuration File Structure](#4-configuration-file-structure)
+      - [Database Connection Settings](#database-connection-settings)
+      - [Table Settings](#table-settings)
+      - [Column Generation Rules (`column_rules`)](#column-generation-rules-column_rules)
+      - [Global Settings (`global_settings`)](#global-settings-global_settings)
+    - [5. Running the Generator](#5-running-the-generator)
+  - [📁 Project Structure](#-project-structure)
+  - [✅ Important Notes and Troubleshooting](#-important-notes-and-troubleshooting)
+    - [**Work Order:**](#work-order)
+    - [**Performance Tuning:**](#performance-tuning)
+    - [**Troubleshooting:**](#troubleshooting)
+- [RU Генератор синтетических данных для PostgreSQL](#ru-генератор-синтетических-данных-для-postgresql)
+- [Создание виртуального окружения](#создание-виртуального-окружения)
+- [Активация (Windows)](#активация-windows)
+- [Активация (Mac/Linux)](#активация-maclinux)
+- [Установка зависимостей](#установка-зависимостей)
+- [Скопируйте подходящий шаблон в корень проекта как config.json](#скопируйте-подходящий-шаблон-в-корень-проекта-как-configjson)
 
 
-# ENGL
-	Synthetic Data Generator for PostgreSQL
+# ENGL Synthetic Data Generator for PostgreSQL
 
 A professional tool for generating realistic synthetic data into PostgreSQL databases. 
 Supports flexible generation rule configuration via JSON files.
@@ -147,9 +173,8 @@ After launch, the generator will:
 *   **Detailed Logging**: For non-obvious errors, change `log_level` to `"DEBUG"` in the configuration for a detailed report.
 *   **Test Run**: Always test your configuration with a small amount of data (`rows_to_generate: 5-10`) before running a full generation.
 
-# RU
-		Генератор синтетических данных для PostgreSQL
-
+# RU Генератор синтетических данных для PostgreSQL
+		
  Профессиональный инструмент для генерации реалистичных синтетических данных в базы данных PostgreSQL.
 Поддерживает гибкую настройку правил генерации через JSON-конфигурацию.
 
